@@ -1,22 +1,35 @@
-const express = require ('express');
+const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const fetch = require('node-fetch');
 
-require ('dotenv').config();
+require('dotenv').config();
 
 const app = express();
 
-app.use (morgan('tiny'));
-app.use (cors());
+app.use(morgan('tiny'));
+app.use(cors());
 
-app.get('/videos' ,(req, res) => {
-  const url = 'https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UCtxJFU9DgUhfr2J2bveCHkQ&maxResults=50';
-  fetch(`${url}&key=${process.env.GOOGLE_API_KEY}`)
-    .then(response => response.json())
-    .then(json => {
-      res.json(json);
-    });
+let cache;
+const url = 'https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UULNgu_OupwoeESgtab33CCw&maxResults=50';
+
+const getVideos = (pageToken) => 
+  fetch(`${url}&key=${process.env.GOOGLE_API_KEY}` + (pageToken ? `&pageToken=${pageToken}` : ''))
+    .then(response => response.json());
+
+app.get('/videos', async (req, res) => {
+  if (cache) return res.json(cache);
+
+  let page = await getVideos();
+  let videos = page.items;
+
+  while (page.nextPageToken) {
+    page = await getVideos(page.nextPageToken);
+    videos = videos.concat(page.items);
+  }
+
+  cache = videos;
+  res.json(videos);
 });
 
 function notFound(req, res, next) {
@@ -31,11 +44,11 @@ function errorHandler(error, req, res, next) {
     message: error.message
   });
 }
- 
+
 app.use(notFound);
 app.use(errorHandler);
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
-  console.log('Listening on Port: ', port);
+  console.log('Listening on port', port);
 });
