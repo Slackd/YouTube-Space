@@ -1,4 +1,24 @@
 {
+  "name": "YouTube-Space",
+  "version": "1.0.0",
+  "description": "Personal Youtube App with Space Video Repository, Searchable",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Slackd/YouTube-Space.git"
+  },
+  "keywords": [],
+  "author": "Budhaditya Saha <budha.rocks@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Slackd/YouTube-Space/issues"
+  },
+  "homepage": "https://github.com/Slackd/YouTube-Space#readme",
+
   "dependencies": {
     "cors": "2.8.4",
     "dotenv": "6.1.0",
