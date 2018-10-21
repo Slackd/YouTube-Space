@@ -1,4 +1,10 @@
-const API_URL = 'https://youtube-space-hbgpunvmfd.now.sh/videos';
+
+// Use if pushed to Now-deploy
+// const API_URL = 'https://youtube-space-hbgpunvmfd.now.sh/videos';
+
+// Use if pushed to local npm-run-dev @ localhost:5000
+const API_URL = 'http://localhost:5000/videos';
+
 const loadingElement = document.querySelector('#loading');
 const videosElement = document.querySelector('#videos');
 const filterInput = document.querySelector('#filter');

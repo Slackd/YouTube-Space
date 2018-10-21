@@ -11,7 +11,7 @@ app.use(morgan('tiny'));
 app.use(cors());
 
 let cache;
-const url = 'https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UULNgu_OupwoeESgtab33CCw&maxResults=50';
+const url = 'https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=PLEhEHUEU3x5q-xB1On4CsLPts0-rZ9oos&maxResults=50';
 
 const getVideos = (pageToken) => 
   fetch(`${url}&key=${process.env.GOOGLE_API_KEY}` + (pageToken ? `&pageToken=${pageToken}` : ''))
