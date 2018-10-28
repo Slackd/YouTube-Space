@@ -1,4 +1,3 @@
-
 // Use if pushed to Now-deploy
 // const API_URL = 'https://youtube-space-hbgpunvmfd.now.sh/videos';
 
@@ -71,6 +70,6 @@ function filterList(event) {
         videoElementsById[video.id].className = 'video video-hide';
       }
     });
-    
+
   }
 }
